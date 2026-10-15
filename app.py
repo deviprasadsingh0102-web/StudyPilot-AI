@@ -9,238 +9,438 @@ DB_PATH = Path(__file__).resolve().parent / "studypilot.db"
 
 st.set_page_config(
     page_title="StudyPilot AI | Student Workspace",
-    page_icon="🎓",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# -------------------- ENHANCED DESIGN SYSTEM --------------------
+# -------------------- VIBRANT DESIGN SYSTEM & SIDEBAR CSS --------------------
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
 
 :root {
-    --navy: #0f172a;
-    --navy-light: #1e293b;
-    --blue: #2563eb;
-    --blue-dark: #1d4ed8;
-    --teal: #0d9488;
     --ink: #0f172a;
-    --muted: #64748b;
+    --muted: #475569;
     --line: #e2e8f0;
     --surface: #ffffff;
-    --canvas: #f8fafc;
 }
 
 html, body, [class*="css"] {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* Vibrant Mesh Background */
 .stApp {
     background: 
-        radial-gradient(circle at 90% 0%, rgba(37, 99, 235, 0.08), transparent 35rem),
-        radial-gradient(circle at 10% 20%, rgba(13, 148, 136, 0.05), transparent 30rem),
-        var(--canvas);
+        radial-gradient(circle at 12% 8%, rgba(139, 92, 246, 0.13), transparent 28rem),
+        radial-gradient(circle at 88% 12%, rgba(236, 72, 153, 0.11), transparent 28rem),
+        radial-gradient(circle at 50% 85%, rgba(14, 165, 233, 0.10), transparent 35rem),
+        #f4f7fe;
     color: var(--ink);
 }
 
-[data-testid="stHeader"] { background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(8px); }
+[data-testid="stHeader"] {
+    background: rgba(244, 247, 254, 0.80);
+    backdrop-filter: blur(10px);
+}
 
 .block-container {
-    max-width: 1400px;
-    padding-top: 1.8rem;
+    max-width: 1420px;
+    padding-top: 1.6rem;
     padding-bottom: 3rem;
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Manrope', sans-serif !important;
+    font-family: 'Outfit', sans-serif !important;
     color: var(--ink) !important;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
 }
 h1 { font-weight: 800 !important; }
 h2, h3 { font-weight: 700 !important; }
 
-/* Sidebar Styling */
+/* ==================== UPGRADED SIDE PANEL ==================== */
 [data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #090d16 0%, #111827 60%, #1e293b 100%);
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    background: 
+        radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.28), transparent 18rem),
+        radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.22), transparent 20rem),
+        linear-gradient(165deg, #0f0c29 0%, #1e1b4b 52%, #111827 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 8px 0 32px rgba(15, 23, 42, 0.18);
 }
-[data-testid="stSidebar"] > div:first-child { padding-top: 1.2rem; }
-[data-testid="stSidebar"] * { color: #f1f5f9; }
-[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p { color: #94a3b8 !important; }
-[data-testid="stSidebar"] hr { border-color: rgba(255, 255, 255, 0.12); }
-[data-testid="stSidebar"] [role="radiogroup"] label {
-    padding: 0.6rem 0.8rem;
-    border-radius: 12px;
-    margin-bottom: 0.2rem;
-    transition: all 0.2s ease;
+[data-testid="stSidebar"] > div:first-child {
+    padding-top: 1.1rem;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label:hover {
-    background: rgba(255, 255, 255, 0.08);
-    transform: translateX(3px);
+[data-testid="stSidebar"] * {
+    color: #f8fafc;
+}
+[data-testid="stSidebar"] hr {
+    border-color: rgba(255, 255, 255, 0.12);
+    margin: 1rem 0;
 }
 
-/* Hero Banner */
+/* Brand Header in Sidebar */
+.sb-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.4rem 0.3rem 0.9rem 0.3rem;
+}
+.sb-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1 0%, #ec4899 55%, #f59e0b 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.45rem;
+    box-shadow: 0 8px 20px rgba(236, 72, 153, 0.45);
+}
+.sb-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+}
+.sb-sub {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a5b4fc !important;
+    font-weight: 700;
+}
+
+/* Student Profile Card in Sidebar */
+.sb-profile {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 18px;
+    padding: 0.95rem 1rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.sb-profile-top {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+.sb-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #06b6d4, #3b82f6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+}
+.sb-name {
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: #ffffff !important;
+    margin: 0;
+}
+.sb-rank {
+    font-size: 0.74rem;
+    color: #fde047 !important;
+    font-weight: 600;
+}
+.sb-xp-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.73rem;
+    margin-top: 0.65rem;
+    padding-top: 0.55rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0 !important;
+}
+.sb-xp-badge {
+    background: rgba(236, 72, 153, 0.25);
+    border: 1px solid rgba(236, 72, 153, 0.5);
+    color: #fbcfe8 !important;
+    padding: 0.1rem 0.5rem;
+    border-radius: 99px;
+    font-weight: 700;
+}
+
+/* Sidebar Navigation Pills */
+[data-testid="stSidebar"] [role="radiogroup"] {
+    gap: 0.38rem;
+}
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    padding: 0.68rem 0.9rem !important;
+    border-radius: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.22s ease !important;
+}
+[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
+    display: none !important; /* Hide default radio circle for clean button look */
+}
+[data-testid="stSidebar"] [role="radiogroup"] label p {
+    font-size: 0.94rem !important;
+    font-weight: 600 !important;
+    color: #e2e8f0 !important;
+}
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    transform: translateX(5px);
+}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 55%, #ec4899 100%) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.45);
+    transform: translateX(4px);
+}
+[data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) p {
+    color: #ffffff !important;
+    font-weight: 800 !important;
+}
+
+/* Glass Goal Box in Sidebar */
+.sb-goal-box {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 0.9rem 1rem;
+    margin-top: 0.8rem;
+}
+.sb-goal-head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: #e2e8f0 !important;
+}
+.sb-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+.sb-bar-fill-1 {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8, #f472b6);
+    border-radius: 99px;
+}
+.sb-bar-fill-2 {
+    height: 100%;
+    background: linear-gradient(90deg, #34d399, #10b981, #06b6d4);
+    border-radius: 99px;
+}
+
+/* ==================== COLORFUL HERO BANNER ==================== */
 .hero {
     position: relative;
     overflow: hidden;
-    padding: 2.3rem 2.5rem;
-    border-radius: 24px;
+    padding: 2.3rem 2.6rem;
+    border-radius: 26px;
     color: #fff !important;
-    background: linear-gradient(125deg, #0f172a 0%, #1e3a8a 55%, #2563eb 100%);
+    background: linear-gradient(120deg, #311042 0%, #4f46e5 45%, #7c3aed 75%, #ec4899 100%);
     margin-bottom: 1.5rem;
-    box-shadow: 0 20px 40px -15px rgba(30, 58, 138, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 45px -12px rgba(99, 102, 241, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.22);
 }
 .hero:after {
     content: "";
     position: absolute;
-    right: -60px;
-    top: -120px;
-    width: 320px;
-    height: 320px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    right: -50px;
+    top: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(253, 224, 71, 0.28) 0%, transparent 70%);
     border-radius: 50%;
-    box-shadow: 0 0 0 40px rgba(255, 255, 255, 0.03), 0 0 0 80px rgba(255, 255, 255, 0.02);
 }
 .hero .eyebrow {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(4px);
-    color: #bfdbfe !important;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+    color: #fef08a !important;
     text-transform: uppercase;
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.74rem;
+    font-weight: 800;
     letter-spacing: 0.12em;
-    padding: 0.35rem 0.8rem;
+    padding: 0.35rem 0.9rem;
     border-radius: 99px;
     margin-bottom: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 .hero h1 {
     color: #ffffff !important;
-    font-size: clamp(1.85rem, 3vw, 2.55rem) !important;
+    font-size: clamp(1.9rem, 3vw, 2.65rem) !important;
     line-height: 1.15;
     margin: 0 0 0.65rem 0;
 }
-.hero p { color: #dbeafe !important; font-size: 1.04rem; margin: 0; max-width: 680px; }
+.hero p {
+    color: #f3e8ff !important;
+    font-size: 1.04rem;
+    margin: 0;
+    max-width: 720px;
+}
 
-/* Metric Tiles */
-div[data-testid="stMetric"] {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    padding: 1.2rem 1.3rem;
-    border-radius: 18px;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* ==================== COLORFUL METRIC CARDS ==================== */
+.metric-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 1.25rem 1.35rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    position: relative;
+    overflow: hidden;
 }
-div[data-testid="stMetric"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+.metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(99, 102, 241, 0.12);
 }
-div[data-testid="stMetric"] label { color: var(--muted) !important; font-weight: 600; }
-div[data-testid="stMetricValue"] {
-    font-family: 'Manrope', sans-serif;
+.metric-top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+}
+.metric-icon-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    margin-bottom: 0.65rem;
+}
+.metric-label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.2rem;
+}
+.metric-val {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.85rem;
     font-weight: 800;
-    color: var(--ink) !important;
+    color: #0f172a;
+    line-height: 1.15;
+}
+.metric-sub {
+    font-size: 0.76rem;
+    font-weight: 700;
+    margin-top: 0.35rem;
 }
 
-/* Interactive Subject Cards */
+/* ==================== SUBJECT CARDS ==================== */
 .card {
     height: 100%;
-    padding: 1.4rem;
-    border-radius: 20px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
-    transition: all 0.22s ease;
+    padding: 1.45rem;
+    border-radius: 22px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.04);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
 }
 .card:hover {
-    transform: translateY(-4px);
-    border-color: #bfdbfe;
-    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 18px 34px rgba(99, 102, 241, 0.12);
 }
 .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.9rem;
 }
 .card-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: #eff6ff;
-    font-size: 1.5rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-size: 1.65rem;
 }
 .card-badge {
     font-size: 0.76rem;
-    font-weight: 700;
-    padding: 0.28rem 0.65rem;
+    font-weight: 800;
+    padding: 0.32rem 0.75rem;
     border-radius: 99px;
-    background: #f1f5f9;
-    color: #334155;
 }
-.card h3 { color: var(--ink) !important; font-size: 1.12rem !important; margin: 0 0 0.4rem 0; }
-.card p { color: var(--muted) !important; line-height: 1.55; margin: 0 0 0.9rem 0; font-size: 0.92rem; }
+.card h3 {
+    color: #0f172a !important;
+    font-size: 1.18rem !important;
+    margin: 0 0 0.45rem 0;
+}
+.card p {
+    color: #475569 !important;
+    line-height: 1.55;
+    margin: 0 0 1rem 0;
+    font-size: 0.93rem;
+}
 .progress-mini {
     width: 100%;
-    height: 7px;
-    background: #e2e8f0;
+    height: 8px;
+    background: #f1f5f9;
     border-radius: 99px;
     overflow: hidden;
 }
 .progress-mini-fill {
     height: 100%;
-    background: linear-gradient(90deg, #2563eb, #0d9488);
     border-radius: 99px;
 }
 
 /* Reusable Panels */
 .panel {
-    padding: 1.35rem 1.5rem;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 18px;
+    padding: 1.4rem 1.55rem;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border-radius: 20px;
     margin: 0.45rem 0 1rem 0;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.025);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.035);
 }
-.panel h3 { margin-top: 0; }
 .pill {
     display: inline-block;
-    padding: 0.3rem 0.7rem;
+    padding: 0.32rem 0.78rem;
     border-radius: 99px;
-    color: #1d4ed8 !important;
-    background: #dbeafe;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+    color: #ffffff !important;
+    background: linear-gradient(90deg, #6366f1, #ec4899);
+    font-size: 0.73rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
 }
 
-/* Buttons & Inputs */
-.stButton button, .stFormSubmitButton button, .stLinkButton a, .stDownloadButton button {
-    border-radius: 11px !important;
-    font-weight: 600 !important;
-    min-height: 2.65rem;
-    transition: all 0.18s ease !important;
-}
+/* Gradient Primary Buttons */
 .stButton button[kind="primary"], .stFormSubmitButton button[kind="primary"] {
-    background: var(--blue) !important;
-    border-color: var(--blue) !important;
-    color: #fff !important;
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 18px rgba(124, 58, 237, 0.32);
+    transition: all 0.2s ease !important;
 }
 .stButton button[kind="primary"]:hover, .stFormSubmitButton button[kind="primary"]:hover {
-    background: var(--blue-dark) !important;
-    border-color: var(--blue-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(236, 72, 153, 0.45);
 }
+
 .footer {
     text-align: center;
     color: #64748b !important;
-    font-size: 0.84rem;
+    font-size: 0.85rem;
     padding-top: 1rem;
+    font-weight: 600;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -260,8 +460,7 @@ def initialize_db():
             name TEXT NOT NULL DEFAULT 'Student',
             goal TEXT NOT NULL DEFAULT 'Master Python & Machine Learning fundamentals',
             weekly_target INTEGER NOT NULL DEFAULT 180)""")
-        
-        # Safely migrate older databases if weekly_target column doesn't exist
+
         cols = [row["name"] for row in conn.execute("PRAGMA table_info(profile)").fetchall()]
         if "weekly_target" not in cols:
             conn.execute("ALTER TABLE profile ADD COLUMN weekly_target INTEGER NOT NULL DEFAULT 180")
@@ -356,10 +555,13 @@ def reset_all_data():
         conn.execute("DELETE FROM topic_progress")
 
 
-# -------------------- LEARNING CONTENT --------------------
+# -------------------- COLORFUL LEARNING CONTENT --------------------
 SUBJECTS = {
     "Python Programming": {
         "icon": "🐍",
+        "accent": "#2563eb",
+        "grad": "linear-gradient(90deg, #2563eb, #06b6d4)",
+        "soft_bg": "#dbeafe",
         "description": "Build a strong foundation in Python, from variables and control flow to functions, data structures, and OOP.",
         "topics": [
             "Variables and data types", "Input and output", "Operators", "Conditions (if/elif/else)",
@@ -370,6 +572,9 @@ SUBJECTS = {
     },
     "Machine Learning": {
         "icon": "🧠",
+        "accent": "#9333ea",
+        "grad": "linear-gradient(90deg, #9333ea, #ec4899)",
+        "soft_bg": "#f3e8ff",
         "description": "Learn how feature engineering, model training, cross-validation, and evaluation metrics work together.",
         "topics": [
             "ML Fundamentals", "Data Preprocessing", "Supervised Learning", "Linear & Logistic Regression",
@@ -379,6 +584,9 @@ SUBJECTS = {
     },
     "Data Science": {
         "icon": "📊",
+        "accent": "#0d9488",
+        "grad": "linear-gradient(90deg, #0d9488, #10b981)",
+        "soft_bg": "#ccfbf1",
         "description": "Explore datasets, handle missing values, build visualizations, and uncover actionable insights.",
         "topics": [
             "NumPy Arrays", "Pandas DataFrames", "Data Cleaning & Imputation",
@@ -388,6 +596,9 @@ SUBJECTS = {
     },
     "Artificial Intelligence": {
         "icon": "✨",
+        "accent": "#ea580c",
+        "grad": "linear-gradient(90deg, #f59e0b, #ea580c)",
+        "soft_bg": "#ffedd5",
         "description": "Understand neural networks, Large Language Models (LLMs), prompt engineering, and AI safety.",
         "topics": [
             "AI vs ML vs Deep Learning", "Neural Network Basics", "Generative AI & LLMs",
@@ -477,47 +688,112 @@ avg_score = float(attempts_df["percentage"].mean()) if not attempts_df.empty els
 total_topics_count = sum(len(v["topics"]) for v in SUBJECTS.values())
 completed_topics_count = sum(len(get_completed_topics(subj)) for subj in SUBJECTS)
 
+# Calculate XP & Student Rank for Sidebar
+xp_points = (completed_topics_count * 50) + (len(attempts_df) * 100) + (total_mins * 2)
+if xp_points >= 1500:
+    rank_title = "🏆 Grandmaster Scholar"
+elif xp_points >= 750:
+    rank_title = "⚡ Pro Explorer"
+elif xp_points >= 250:
+    rank_title = "🚀 Rising Coder"
+else:
+    rank_title = "🌱 Starter Cadet"
 
-# -------------------- SIDEBAR NAVIGATION --------------------
-st.sidebar.markdown("# 🎓 StudyPilot AI")
-st.sidebar.caption("PERSONAL LEARNING WORKSPACE")
 
-page = st.sidebar.radio(
-    "NAVIGATION",
-    ["Dashboard", "Subjects", "Quiz", "AI Mentor", "Progress", "Study Planner", "Profile"],
-)
+# -------------------- REDESIGNED SIDE PANEL --------------------
+with st.sidebar:
+    # 1. Custom Glowing Brand Header
+    st.markdown(
+        '<div class="sb-brand">'
+        '<div class="sb-logo">🚀</div>'
+        '<div><div class="sb-title">StudyPilot AI</div>'
+        '<div class="sb-sub">Smart Learning OS</div></div>'
+        '</div>',
+        unsafe_allow_html=True,
+    )
 
-st.sidebar.divider()
-st.sidebar.markdown("### 🎯 Weekly Study Target")
-goal_pct = min(total_mins / max(weekly_target, 1), 1.0)
-st.sidebar.progress(goal_pct, text=f"{total_mins} / {weekly_target} mins ({goal_pct*100:.0f}%)")
+    # 2. Student Avatar & XP Level Card
+    initials = "".join([part[0].upper() for part in student_name.split()[:2]]) or "S"
+    st.markdown(
+        f'<div class="sb-profile">'
+        f'<div class="sb-profile-top">'
+        f'<div class="sb-avatar">{initials}</div>'
+        f'<div><div class="sb-name">{student_name}</div>'
+        f'<div class="sb-rank">{rank_title}</div></div>'
+        f'</div>'
+        f'<div class="sb-xp-row">'
+        f'<span>Total Experience</span>'
+        f'<span class="sb-xp-badge">✨ {xp_points} XP</span>'
+        f'</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
 
-st.sidebar.markdown("### 📚 Curriculum Mastery")
-topic_pct = completed_topics_count / max(total_topics_count, 1)
-st.sidebar.progress(topic_pct, text=f"{completed_topics_count} / {total_topics_count} topics completed")
+    # 3. Emoji-Enhanced Navigation Menu
+    NAV_MAP = {
+        "🏠  Dashboard": "Dashboard",
+        "📚  Subjects & Syllabus": "Subjects",
+        "📝  Knowledge Quiz": "Quiz",
+        "🤖  AI Study Mentor": "AI Mentor",
+        "📈  Progress Analytics": "Progress",
+        "🗓️  Study Planner": "Study Planner",
+        "👤  Profile & Settings": "Profile",
+    }
+    selected_nav = st.radio("WORKSPACE MENU", list(NAV_MAP.keys()), label_visibility="collapsed")
+    page = NAV_MAP[selected_nav]
 
-st.sidebar.divider()
-st.sidebar.caption("💡 **Tip:** Consistency beats cramming. Log 25 mins today!")
+    # 4. Custom Glassmorphic Progress Trackers
+    goal_pct = min(int((total_mins / max(weekly_target, 1)) * 100), 100)
+    topic_pct = int((completed_topics_count / max(total_topics_count, 1)) * 100)
+
+    st.markdown(
+        f'<div class="sb-goal-box">'
+        f'<div class="sb-goal-head"><span>⏱️ Weekly Study Target</span><span>{goal_pct}%</span></div>'
+        f'<div class="sb-bar-bg"><div class="sb-bar-fill-1" style="width:{goal_pct}%;"></div></div>'
+        f'<div class="sb-goal-head"><span>🎓 Syllabus Mastery</span><span>{topic_pct}%</span></div>'
+        f'<div class="sb-bar-bg" style="margin-bottom:0.2rem;"><div class="sb-bar-fill-2" style="width:{topic_pct}%;"></div></div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+
+    st.divider()
+    st.caption("✨ **Daily Boost:** 25 mins of focused coding today builds unstoppable momentum!")
 
 
 # -------------------- PAGE 1: DASHBOARD --------------------
 if page == "Dashboard":
     st.markdown(
         f'<div class="hero">'
-        f'<div class="eyebrow">STUDENT WORKSPACE · ACTIVE</div>'
-        f'<h1>Welcome back, {student_name} 👋</h1>'
-        f'<p>Current Focus: <strong>{profile["goal"]}</strong> — Track your syllabus mastery, test your knowledge across 4 tracks, and log your daily focus sessions.</p>'
+        f'<div class="eyebrow">✨ {rank_title.upper()} · {xp_points} XP EARNED</div>'
+        f'<h1>Welcome back, {student_name}! 🌟</h1>'
+        f'<p>Active Mission: <strong>{profile["goal"]}</strong> — Keep checking off your syllabus, testing your skills, and stacking daily XP.</p>'
         f'</div>',
         unsafe_allow_html=True,
     )
 
+    # Colorful Custom HTML Metric Cards
     m1, m2, m3, m4 = st.columns(4)
-    m1.metric("📚 Topics Mastered", f"{completed_topics_count}/{total_topics_count}", f"{topic_pct*100:.0f}% syllabus")
-    m2.metric("📝 Quizzes Completed", len(attempts_df))
-    m3.metric("🎯 Average Quiz Score", f"{avg_score:.0f}%")
-    m4.metric("⏱️ Total Study Time", f"{total_mins // 60}h {total_mins % 60}m", f"Goal: {weekly_target}m")
+    metrics_data = [
+        (m1, "📚", "Topics Mastered", f"{completed_topics_count}/{total_topics_count}", f"{topic_pct}% Syllabus Completed", "linear-gradient(90deg, #3b82f6, #06b6d4)", "#dbeafe", "#1d4ed8"),
+        (m2, "📝", "Quizzes Completed", str(len(attempts_df)), "Across 4 Learning Tracks", "linear-gradient(90deg, #8b5cf6, #ec4899)", "#f3e8ff", "#7e22ce"),
+        (m3, "🎯", "Average Quiz Score", f"{avg_score:.0f}%", "Target: 80%+ Mastery", "linear-gradient(90deg, #10b981, #14b8a6)", "#d1fae5", "#047857"),
+        (m4, "⏱️", "Total Study Time", f"{total_mins // 60}h {total_mins % 60}m", f"Weekly Target: {weekly_target}m", "linear-gradient(90deg, #f59e0b, #ef4444)", "#ffedd5", "#b45309"),
+    ]
+    for col, icon, label, val, sub, bar_grad, icon_bg, sub_color in metrics_data:
+        with col:
+            st.markdown(
+                f'<div class="metric-card">'
+                f'<div class="metric-top-bar" style="background:{bar_grad};"></div>'
+                f'<div class="metric-icon-pill" style="background:{icon_bg};">{icon}</div>'
+                f'<div class="metric-label">{label}</div>'
+                f'<div class="metric-val">{val}</div>'
+                f'<div class="metric-sub" style="color:{sub_color};">{sub}</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
 
-    st.markdown("## 🚀 Learning Tracks Overview")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("## 🎨 Interactive Learning Tracks")
     cols = st.columns(2, gap="medium")
     for i, (subj_name, info) in enumerate(SUBJECTS.items()):
         done_set = get_completed_topics(subj_name)
@@ -527,44 +803,47 @@ if page == "Dashboard":
 
         with cols[i % 2]:
             st.markdown(
-                f'<div class="card">'
+                f'<div class="card" style="border-top: 5px solid {info["accent"]};">'
                 f'<div class="card-header">'
-                f'<div class="card-icon">{info["icon"]}</div>'
-                f'<span class="card-badge">{done_t}/{total_t} Topics · {pct_t}%</span>'
+                f'<div class="card-icon" style="background:{info["soft_bg"]};">{info["icon"]}</div>'
+                f'<span class="card-badge" style="background:{info["soft_bg"]}; color:{info["accent"]};">'
+                f'{done_t}/{total_t} Topics · {pct_t}%</span>'
                 f'</div>'
                 f'<h3>{subj_name}</h3>'
                 f'<p>{info["description"]}</p>'
-                f'<div class="progress-mini"><div class="progress-mini-fill" style="width: {pct_t}%;"></div></div>'
+                f'<div class="progress-mini">'
+                f'<div class="progress-mini-fill" style="width:{pct_t}%; background:{info["grad"]};"></div>'
+                f'</div>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
 
     left, right = st.columns([1.25, 1], gap="medium")
     with left:
-        st.markdown("### 📌 Smart Next Step")
+        st.markdown("### 🚀 Recommended Next Move")
         if attempts_df.empty:
-            rec_title = "Take your first diagnostic quiz"
-            rec_desc = "Head to the Quiz tab and complete a 5-7 question check to establish your baseline score."
+            rec_title = "Take your first diagnostic quiz (+100 XP)"
+            rec_desc = "Head to the Knowledge Quiz tab and complete a quick check to unlock your score analytics."
         elif avg_score < 70:
-            rec_title = "Review explanations & strengthen weak spots"
-            rec_desc = f"Your average quiz score is {avg_score:.0f}%. Use the AI Mentor to review core concepts before retaking."
+            rec_title = "Boost your quiz average above 70%"
+            rec_desc = f"Your current average is {avg_score:.0f}%. Review quick concepts in the AI Mentor tab and retry!"
         else:
-            rec_title = "Advance your topic checklist"
-            rec_desc = f"Great quiz average ({avg_score:.0f}%)! Mark off new topics in the Subjects tab and log a 30-minute session."
+            rec_title = "Master new syllabus topics (+50 XP each)"
+            rec_desc = f"Awesome {avg_score:.0f}% quiz average! Check off your next topic in Subjects and log a focus session."
 
         st.markdown(
-            f'<div class="panel"><span class="pill">RECOMMENDED ACTION</span>'
+            f'<div class="panel"><span class="pill">NEXT ACTION</span>'
             f'<h3 style="margin-top:0.75rem;">{rec_title}</h3>'
             f'<p style="margin-bottom:0;">{rec_desc}</p></div>',
             unsafe_allow_html=True,
         )
 
     with right:
-        st.markdown("### 🎯 Active Learning Goal")
+        st.markdown("### 🎯 Current Goal")
         st.markdown(
-            f'<div class="panel"><span class="pill">CURRENT OBJECTIVE</span>'
+            f'<div class="panel"><span class="pill">ACTIVE GOAL</span>'
             f'<h3 style="margin-top:0.75rem;">{profile["goal"]}</h3>'
-            f'<p style="margin-bottom:0;">Weekly commitment target: <strong>{weekly_target} minutes</strong>.</p></div>',
+            f'<p style="margin-bottom:0;">Weekly habit target: <strong>{weekly_target} minutes</strong>.</p></div>',
             unsafe_allow_html=True,
         )
 
@@ -572,268 +851,16 @@ if page == "Dashboard":
 # -------------------- PAGE 2: SUBJECTS --------------------
 elif page == "Subjects":
     st.title("📚 Learning Tracks & Syllabus")
-    st.write("Select a track below to check off completed topics. Your progress is automatically saved to the database.")
+    st.write("Select a colorful track below and check off completed topics. Each checked topic awards **+50 XP**!")
 
     chosen = st.selectbox("Select learning track", list(SUBJECTS.keys()))
     info = SUBJECTS[chosen]
     done_topics = get_completed_topics(chosen)
 
     st.markdown(
-        f'<div class="panel"><span class="pill">SYLLABUS TRACKER</span>'
+        f'<div class="panel" style="border-left: 6px solid {info["accent"]};">'
+        f'<span class="pill" style="background:{info["grad"]};">SYLLABUS TRACKER</span>'
         f'<h2 style="margin-top:0.65rem;">{info["icon"]} {chosen}</h2>'
         f'<p style="margin-bottom:0;">{info["description"]}</p></div>',
         unsafe_allow_html=True,
     )
-
-    st.markdown("### ✅ Persistent Topic Checklist")
-    topic_cols = st.columns(2)
-    current_checked = 0
-
-    for i, topic in enumerate(info["topics"]):
-        is_done = topic in done_topics
-        with topic_cols[i % 2]:
-            new_val = st.checkbox(topic, value=is_done, key=f"chk_{chosen}_{topic}")
-            if new_val != is_done:
-                set_topic_status(chosen, topic, new_val)
-                st.rerun()
-            if new_val:
-                current_checked += 1
-
-    pct_done = current_checked / len(info["topics"])
-    st.progress(pct_done, text=f"{current_checked} of {len(info['topics'])} topics mastered ({pct_done*100:.0f}%)")
-    st.link_button(f"Open Official {chosen} Documentation ↗", info["url"])
-
-
-# -------------------- PAGE 3: QUIZ --------------------
-elif page == "Quiz":
-    st.title("📝 Multi-Track Knowledge Check")
-    st.write("Test your understanding across any learning track and get instant explanations.")
-
-    quiz_subject = st.selectbox("Choose Quiz Track", list(QUIZ_BANK.keys()))
-    questions = QUIZ_BANK[quiz_subject]
-
-    st.markdown(
-        f'<div class="panel"><span class="pill">{len(questions)} QUESTIONS · {quiz_subject.upper()}</span> &nbsp; '
-        f'Select an answer for each question and submit to record your attempt.</div>',
-        unsafe_allow_html=True,
-    )
-
-    with st.form(f"quiz_form_{quiz_subject}"):
-        answers = []
-        for i, item in enumerate(questions):
-            st.markdown(f"**Q{i + 1}. {item['q']}**")
-            ans = st.radio(
-                "Select option",
-                item["options"],
-                index=None,
-                key=f"q_{quiz_subject}_{i}",
-                horizontal=True,
-                label_visibility="collapsed",
-            )
-            answers.append(ans)
-            if i < len(questions) - 1:
-                st.divider()
-
-        submitted = st.form_submit_button("Submit Quiz Answers", type="primary", use_container_width=True)
-
-    if submitted:
-        unanswered = sum(1 for a in answers if a is None)
-        if unanswered > 0:
-            st.warning(f"You left {unanswered} question(s) blank. Unanswered questions are marked incorrect.")
-
-        score = sum(answers[i] == item["answer"] for i, item in enumerate(questions))
-        pct = score * 100 / len(questions)
-        save_quiz(student_name, quiz_subject, score, len(questions))
-
-        st.success(f"Quiz graded and saved to your **{quiz_subject}** history!")
-        c1, c2, c3 = st.columns(3)
-        c1.metric("Score", f"{score} / {len(questions)}")
-        c2.metric("Percentage", f"{pct:.0f}%")
-        c3.metric("Performance Rating", "🌟 Mastery" if pct >= 80 else "👍 Solid" if pct >= 60 else "📖 Needs Review")
-
-        with st.expander("🔍 Detailed Answer Breakdown", expanded=True):
-            for i, item in enumerate(questions):
-                is_correct = answers[i] == item["answer"]
-                icon = "✅" if is_correct else "❌"
-                st.markdown(f"**{icon} Q{i + 1}. {item['q']}**")
-                st.write(f"Your answer: `{answers[i] or 'Not answered'}` | Correct answer: `{item['answer']}`")
-                st.caption(f"💡 **Explanation:** {item['why']}")
-                st.divider()
-
-
-# -------------------- PAGE 4: AI MENTOR --------------------
-elif page == "AI Mentor":
-    st.title("🤖 Interactive AI Study Mentor")
-    st.write("Click a quick-topic pill below or type a question in the chat box for instant code examples and study advice.")
-
-    if "mentor_messages" not in st.session_state:
-        st.session_state.mentor_messages = [
-            {
-                "role": "assistant",
-                "content": f"Hi **{student_name}**! 👋 Ask me about **Python lists, dictionaries, loops, functions, Pandas, Machine Learning workflows**, or **study habits**."
-            }
-        ]
-
-    selected_pill = st.pills(
-        "Quick Concept Lookup:",
-        list(MENTOR_KB.keys()),
-        selection_mode="single",
-    )
-
-    for msg in st.session_state.mentor_messages:
-        with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
-
-    user_prompt = st.chat_input("Ask a question (e.g., How do dictionaries work in Python?)...")
-
-    active_query = None
-    if user_prompt:
-        active_query = user_prompt
-    elif selected_pill and st.session_state.get("last_pill") != selected_pill:
-        st.session_state.last_pill = selected_pill
-        active_query = selected_pill
-
-    if active_query:
-        st.session_state.mentor_messages.append({"role": "user", "content": active_query})
-        q_lower = active_query.lower()
-
-        matched_reply = None
-        if active_query in MENTOR_KB:
-            matched_reply = MENTOR_KB[active_query]["reply"]
-        else:
-            for topic_title, data in MENTOR_KB.items():
-                if any(k in q_lower for k in data["keywords"]):
-                    matched_reply = data["reply"]
-                    break
-
-        if not matched_reply:
-            matched_reply = (
-                "I'm running in **Offline Starter Mode**, so I specialize in core curriculum topics. "
-                "Try asking about: **Python Lists, Dictionaries, Loops, Functions, Pandas, Machine Learning**, or **Study Strategy**!"
-            )
-
-        st.session_state.mentor_messages.append({"role": "assistant", "content": matched_reply})
-        st.rerun()
-
-
-# -------------------- PAGE 5: PROGRESS --------------------
-elif page == "Progress":
-    st.title("📈 Analytics & Progress")
-    st.write("Visual breakdown of your quiz scores, study time distribution, and downloadable logs.")
-
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Total Quiz Attempts", len(attempts_df))
-    c2.metric("Logged Study Sessions", len(logs_df))
-    c3.metric("Cumulative Study Time", f"{total_mins} mins")
-
-    col_left, col_right = st.columns(2, gap="medium")
-
-    with col_left:
-        st.markdown("### 🎯 Quiz Score Trend (%)")
-        if not attempts_df.empty:
-            chart_df = attempts_df.iloc[::-1].copy()
-            chart_df["Attempt"] = range(1, len(chart_df) + 1)
-            st.line_chart(chart_df.set_index("Attempt")["percentage"])
-        else:
-            st.info("Take a quiz in the Quiz tab to unlock your score trend chart.")
-
-    with col_right:
-        st.markdown("### ⏱️ Minutes Studied by Subject")
-        if not logs_df.empty:
-            subj_totals = logs_df.groupby("subject")["minutes"].sum()
-            st.bar_chart(subj_totals)
-        else:
-            st.info("Log a study session in Study Planner to view subject breakdown.")
-
-    if not attempts_df.empty:
-        st.markdown("### 📋 Quiz History")
-        st.dataframe(
-            attempts_df[["quiz_name", "score", "total", "percentage", "attempted_at"]],
-            use_container_width=True,
-            hide_index=True,
-        )
-
-    if not logs_df.empty:
-        st.markdown("### 🗂️ Study Session Logs")
-        st.dataframe(
-            logs_df[["subject", "minutes", "note", "logged_at"]],
-            use_container_width=True,
-            hide_index=True,
-        )
-        csv_data = logs_df.to_csv(index=False).encode("utf-8")
-        st.download_button(
-            "⬇️ Export Study Logs as CSV",
-            data=csv_data,
-            file_name="studypilot_logs.csv",
-            mime="text/csv",
-        )
-
-
-# -------------------- PAGE 6: STUDY PLANNER --------------------
-elif page == "Study Planner":
-    st.title("🗓️ Study Session Logger")
-    st.write("Log your focused study blocks to track your weekly target and build momentum.")
-
-    col_form, col_timer = st.columns([1.4, 1], gap="medium")
-
-    with col_form:
-        with st.form("study_form"):
-            subject = st.selectbox("Subject Track", list(SUBJECTS.keys()))
-            minutes = st.number_input("Duration (minutes)", min_value=5, max_value=480, value=30, step=5)
-            note = st.text_area("What did you work on?", placeholder="e.g., Completed 5 Python dictionary exercises and reviewed list slicing.")
-            save = st.form_submit_button("Log Study Session", type="primary", use_container_width=True)
-
-        if save:
-            save_study(subject, int(minutes), note)
-            st.success("Session recorded! Your weekly progress bar has been updated.")
-            st.rerun()
-
-    with col_timer:
-        st.markdown(
-            '<div class="panel"><span class="pill">FOCUS FRAMEWORK</span>'
-            '<h3 style="margin-top:0.75rem;">The 25-5 Rule</h3>'
-            '<p>1. Pick <strong>one single topic</strong> from the Subjects tab.<br>'
-            '2. Set a timer for <strong>25 minutes</strong> and close all social tabs.<br>'
-            '3. Write code or summary notes from memory.<br>'
-            '4. Take a <strong>5-minute break</strong> and log your session here.</p></div>',
-            unsafe_allow_html=True,
-        )
-
-    if not logs_df.empty:
-        st.markdown("### 🕒 Recent Study Logs")
-        st.dataframe(
-            logs_df[["subject", "minutes", "note", "logged_at"]].head(8),
-            use_container_width=True,
-            hide_index=True,
-        )
-
-
-# -------------------- PAGE 7: PROFILE --------------------
-elif page == "Profile":
-    st.title("👤 Student Profile & Settings")
-    st.write("Customize your workspace identity, learning objective, and weekly target.")
-
-    with st.form("profile_form"):
-        name = st.text_input("Student Name", value=profile["name"])
-        goal = st.text_area("Primary Learning Goal", value=profile["goal"])
-        target = st.slider("Weekly Study Goal (minutes)", min_value=30, max_value=1200, value=weekly_target, step=30)
-        save = st.form_submit_button("Save Profile Settings", type="primary", use_container_width=True)
-
-    if save:
-        save_profile(name, goal, target)
-        st.success("Profile updated!")
-        st.rerun()
-
-    st.markdown("### ⚙️ Workspace Data Management")
-    with st.expander("Danger Zone: Reset Workspace Records"):
-        st.warning("This will permanently clear all quiz attempts, study logs, and checked syllabus topics.")
-        if st.button("🗑️ Clear All Progress Data"):
-            reset_all_data()
-            st.success("All history cleared.")
-            st.rerun()
-
-st.divider()
-st.markdown(
-    '<div class="footer">StudyPilot AI · Built with Streamlit & SQLite · Keep learning, one focused session at a time.</div>',
-    unsafe_allow_html=True,
-)
